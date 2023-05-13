@@ -1,3 +1,3 @@
-# shonen-jump-chapter-tracker
-A userscript to help track your manga chapters automatically on Viz's Shonen Jump website.  
+# viz-chapter-tracker
+A userscript to help track your manga chapters automatically on Viz's manga websites.  
 Author: Aurange
