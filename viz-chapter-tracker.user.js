@@ -1,9 +1,8 @@
 // ==UserScript==
 // @name    [Viz] Chapter Tracker
 // @author  Aurange
-// @version 1.3
-// @match   https://www.viz.com/shonenjump/chapters/*
-// @match   https://www.viz.com/vizmanga/chapters/*
+// @version 1.4
+// @match   https://www.viz.com/*/chapters/*
 // @grant   window.close
 // ==/UserScript==
 
