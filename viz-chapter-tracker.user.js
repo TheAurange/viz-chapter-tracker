@@ -1,19 +1,42 @@
 // ==UserScript==
 // @name    [Viz] Chapter Tracker
 // @author  Aurange
-// @version 1.5
-// @match   https://www.viz.com/*/chapters/*
+// @version 1.6
+// @match   https://www.viz.com/account
 // @grant   window.close
 // ==/UserScript==
 
 "use strict";
 
-let c = document.querySelector("div#chpt_rows tr.o_chapter > td.ch-num-list-spacing > div"),
-    cN = c.innerText.split("Ch. ")[1];
+new MutationObserver(function(mutationList, observer){
+  let manga = document.querySelectorAll("div.o_sort_container > div.p-cs-tile"),
+      init = true;
 
-if(localStorage.getItem(window.location.href) === null || Number(cN) > Number(localStorage.getItem(window.location.href))){
-  localStorage.setItem(window.location.href, cN);
+  if(manga.length > 0){
+    observer.disconnect();
 
-  c.parentElement.parentElement.parentElement.parentElement.parentElement.parentElement.click();
-}
-else window.close();
+    manga.forEach(e => {
+      let title = e.querySelectorAll("a.o_chapters-link > div")[1].textContent,
+          link = e.querySelector("a.o_inner-link"),
+          chapter = link.querySelector("span").textContent.split(/\s/)[2];
+
+      if(localStorage.getItem(title) === null || Number(chapter) > Number(localStorage.getItem(title))){
+        let check = window.open(link, "_blank");
+
+        if(!check){
+          if(init){
+            init = false;
+
+            alert("Enable pop-ups for this site.");
+          }
+        }
+        else localStorage.setItem(title, chapter);
+      }
+    });
+
+    window.close();
+  }
+}).observe(document, {
+  childList: true,
+  subtree: true
+});
