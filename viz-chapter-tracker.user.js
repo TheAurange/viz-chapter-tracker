@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name    [Viz] Chapter Tracker
 // @author  Aurange
-// @version 1.6
+// @version 1.7
 // @match   https://www.viz.com/account
 // @grant   window.close
 // ==/UserScript==
@@ -20,7 +20,7 @@ new MutationObserver(function(mutationList, observer){
           link = e.querySelector("a.o_inner-link"),
           chapter = link.querySelector("span").textContent.split(/\s/)[2];
 
-      if(localStorage.getItem(title) === null || Number(chapter) > Number(localStorage.getItem(title))){
+      if(!localStorage.getItem(title) || Number(chapter) > Number(localStorage.getItem(title))){
         let check = window.open(link, "_blank");
 
         if(!check){
