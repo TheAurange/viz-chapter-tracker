@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name    [Viz] Chapter Tracker
 // @author  Aurange
-// @version 1.9
+// @version 1.10
 // @match   https://www.viz.com/account
 // @grant   window.close
 // ==/UserScript==
@@ -20,10 +20,9 @@ new MutationObserver(function(mutationList, observer){
     manga.forEach(e => {
       let title = e.querySelectorAll("a.o_chapters-link > div")[1].textContent,
           link = e.querySelector("a.o_inner-link"),
-          chapter = link.querySelector("span").textContent.split(/\s/)[2],
-          lST = localStorage.getItem(title);
+          chapter = link.querySelector("span").textContent.split(/\s/)[2];
 
-      if(!lST || Number(chapter) > Number(lST)){
+      if(Number(chapter) > Number(localStorage.getItem(title))){
         let check = window.open(link, "_blank");
 
         if(!check){
